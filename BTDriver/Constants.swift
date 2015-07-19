@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  Constants.swift
 //  BTDriver
 //
 //  Created by Alfred Cepeda on 7/15/15.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreBluetooth
 
-var driver = Driver();
-driver.run();
+class Const {
+    static let BT_UID = "9019399B-FBBE-4675-A1A0-0038E3BAFE8E";
+}
