@@ -19,29 +19,19 @@ class Driver : BTManagerDelegate {
         NSRunLoop.currentRunLoop().run();
     }
     
-    func outputServices(services: [String: [CBCharacteristic]]) {
-        for (UUID, characteristics) in services {
-            print("Service(\(UUID)) is available with \(characteristics.count) characteristics: ");
-            
-            for (characteristic) in characteristics {
-                print("\(characteristic.UUID.UUIDString)");
-            }
-        }
-    }
-    
     func characteristicUpdated(characteristic: CBCharacteristic!, withValue value: NSData!, fromPeripheral peripheral: CBPeripheral) {
         print("\(characteristic.UUID.UUIDString): \(value)");
     }
     
     func peripheralScanned(peripheral: CBPeripheral, withCharacteristics services: [String : [CBCharacteristic]]) {
-        outputServices(services);
-        let UUID = services.keys.first!;
-        print("Registering to service: \(UUID)");
-    
-        for characteristic in services[UUID]! {
-            peripheral.setNotifyValue(true, forCharacteristic: characteristic);
-            print("Default \(characteristic.UUID.UUIDString): \(characteristic.value)");
-            peripheral.readValueForCharacteristic(characteristic);
+        for (UUID, characteristics) in services {
+            print("----------Registering to service: \(UUID)----------");
+
+            for characteristic in characteristics {
+                peripheral.setNotifyValue(true, forCharacteristic: characteristic);
+                peripheral.readValueForCharacteristic(characteristic);
+                print("\(characteristic.UUID) (\(characteristic.value))");
+            }
         }
     }
     
