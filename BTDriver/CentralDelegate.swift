@@ -9,13 +9,13 @@
 import Foundation
 import CoreBluetooth
 
-class BTCentralDelegate : NSObject, CBCentralManagerDelegate {
+class CentralDelegate : NSObject, CBCentralManagerDelegate {
     var delegate:BTManagerDelegate;
     var connecting:[CBPeripheral] = [];
     var connected:[CBPeripheral] = [];
     var discovered:[String] = [];
     
-    var didConnectPeripheral:((CBPeripheral) -> ()) = { _ in print("Need to override BTCentral.didDiscoverPeripheral on: \(self)") };
+    var didConnectPeripheral:((CBPeripheral) -> ()) = { _ in print("Need to override BTCentral.didConnectPeripheral on: \(self)") };
     
     init(delegate:BTManagerDelegate) {
         self.delegate = delegate;
@@ -52,15 +52,14 @@ class BTCentralDelegate : NSObject, CBCentralManagerDelegate {
         let shouldSkip = (self.connecting.indexOf(peripheral) != nil && self.connected.indexOf(peripheral) != nil);
         let validUID = (Const.connectAll == true || Const.BT_UIDs.indexForKey(UUID) != nil);
         if( shouldSkip || validUID ) {
-            print("Attemping to connect to: \(UUID)");
+            print("Attemping to connect to: \"\(peripheral.name!)\"");
             central.connectPeripheral(peripheral, options: nil);
             self.connecting.append(peripheral);
         }
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        let UUID = peripheral.identifier.UUIDString;
-        print("[\(UUID)] discovering services ... ");
+        print("Connected to \"\(peripheral.name!)\"! Discovering services ... ");
         
         if let index = self.connecting.indexOf(peripheral) {
             self.connecting.removeAtIndex(index);

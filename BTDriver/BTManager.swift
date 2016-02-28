@@ -18,7 +18,7 @@ protocol BTManagerDelegate {
 
 class BTManager: NSObject, CBPeripheralDelegate {
     var manager:CBCentralManager;
-    var central:BTCentralDelegate;
+    var central:CentralDelegate;
     var delegate:BTManagerDelegate;
     var services:[String:CBService] = [:];
     var characteristics:[String:[CBCharacteristic]] = [:];
@@ -26,7 +26,7 @@ class BTManager: NSObject, CBPeripheralDelegate {
     
     init (delegate:BTManagerDelegate) {
         self.delegate = delegate;
-        self.central = BTCentralDelegate(delegate: delegate);
+        self.central = CentralDelegate(delegate: delegate);
         self.manager = CBCentralManager(delegate: central, queue: dispatch_get_main_queue());
         
         super.init();
@@ -36,7 +36,7 @@ class BTManager: NSObject, CBPeripheralDelegate {
     
     func connectPeripheral() {
         if(Const.forceScan == true) {
-            self.connectToAny();
+            self.startScanning();
             return;
         }
         
@@ -47,7 +47,7 @@ class BTManager: NSObject, CBPeripheralDelegate {
             print("Found registered peripherals, attempting to connect");
             self.connectToPeripherals(peripherals);
         } else {
-            self.connectToAny();
+            self.startScanning();
         }
     }
     
@@ -58,9 +58,16 @@ class BTManager: NSObject, CBPeripheralDelegate {
         }
     }
     
-    func connectToAny() {
-        print("Scanning for an available peripheral");
+    func startScanning() {
+        print("Scanning for available peripherals");
         self.manager.scanForPeripheralsWithServices(nil, options: nil);
+    
+        delay(Const.scanTime, cb: self.stopScanning);
+    }
+    
+    func stopScanning() {
+        self.manager.stopScan();
+        print("Stopped scanning for available peripherals");
     }
     
     func bluetoothIDs() -> [NSUUID] {
