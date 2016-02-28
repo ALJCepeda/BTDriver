@@ -11,7 +11,7 @@ import CoreBluetooth
 
 class BTCentralDelegate : NSObject, CBCentralManagerDelegate {
     var delegate:BTManagerDelegate;
-    var connecting:[String] = [];
+    var connecting:[CBPeripheral] = [];
     var connected:[CBPeripheral] = [];
     var discovered:[String] = [];
     
@@ -49,12 +49,12 @@ class BTCentralDelegate : NSObject, CBCentralManagerDelegate {
         self.discovered.append(UUID);
         print("Discovered: \"\(peripheral.name!)\" Identifier: \"\(UUID)\"");
         
-        let shouldSkip = (self.connecting.indexOf(UUID) != nil && self.connected.indexOf(peripheral) != nil);
+        let shouldSkip = (self.connecting.indexOf(peripheral) != nil && self.connected.indexOf(peripheral) != nil);
         let validUID = (Const.connectAll == true || Const.BT_UIDs.indexForKey(UUID) != nil);
         if( shouldSkip || validUID ) {
             print("Attemping to connect to: \(UUID)");
             central.connectPeripheral(peripheral, options: nil);
-            self.connecting.append(UUID);
+            self.connecting.append(peripheral);
         }
     }
     
@@ -62,7 +62,7 @@ class BTCentralDelegate : NSObject, CBCentralManagerDelegate {
         let UUID = peripheral.identifier.UUIDString;
         print("[\(UUID)] discovering services ... ");
         
-        if let index = self.connecting.indexOf(UUID) {
+        if let index = self.connecting.indexOf(peripheral) {
             self.connecting.removeAtIndex(index);
         }
         

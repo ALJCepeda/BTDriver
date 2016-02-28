@@ -53,9 +53,8 @@ class BTManager: NSObject, CBPeripheralDelegate {
     
     func connectToPeripherals(peripherals:[CBPeripheral]) {
         for peripheral in peripherals {
-            let UUID = peripheral.identifier.UUIDString;
             self.manager.connectPeripheral(peripheral, options: nil);
-            self.central.connecting.append(UUID);
+            self.central.connecting.append(peripheral);
         }
     }
     
