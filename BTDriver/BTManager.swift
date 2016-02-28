@@ -18,9 +18,10 @@ protocol BTManagerDelegate {
 
 class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var manager:CBCentralManager!;
-    var discovered:CBPeripheral!;
     var services:[String:CBService] = [:];
     var characteristics:[String:[CBCharacteristic]] = [:];
+    var connecting:[String] = [];
+    var discovered:[String] = [];
     var connected:Int = 0;
     var delegate:BTManagerDelegate!;
     
@@ -33,9 +34,9 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func connectPeripheral() {
         let ids:[NSUUID] = bluetoothIDs();
         let peripherals = self.manager.retrievePeripheralsWithIdentifiers(ids);
-        
+
         if(peripherals.count > 0){
-            print("Found \(peripherals.count) previously connected peripheral, attempting to reconnect");
+            print("Found registered peripherals, attempting to connect");
             
             for peripheral in peripherals {
                 self.manager.connectPeripheral(peripheral, options: nil);
@@ -47,7 +48,7 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func bluetoothIDs() -> [NSUUID] {
-        return Array(Const.BT_UIDs.keys).map { NSUUID(UUIDBytes: $0); };
+        return Const.BT_UIDs.keys.map { NSUUID(UUIDString: $0)! };
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
@@ -102,17 +103,24 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject],RSSI: NSNumber) {
-        print("Discovered: \(peripheral)");
         let UUID = peripheral.identifier.UUIDString;
         
-        if(Const.BT_UIDs.indexForKey(UUID) != nil) {
+        if(self.discovered.indexOf(UUID) != nil) {
+            return;
+        }
+        
+        self.discovered.append(UUID);
+        print("Discovered: \"\(peripheral.name!)\" Identifier: \"\(UUID)\"");
+        
+        if(Const.BT_UIDs.indexForKey(UUID) != nil && self.connecting.indexOf(UUID) != nil) {
             print("Attemping to connect to: \(UUID)");
             self.manager.connectPeripheral(peripheral, options: nil);
+            self.connecting.append(UUID);
         }
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        print("Connected to peripheral, discovering servicets");
+        print("Connected to peripheral, discovering services");
         
         let UUID = peripheral.identifier.UUIDString;
         if let serviceIDs = Const.BT_UIDs[UUID] {

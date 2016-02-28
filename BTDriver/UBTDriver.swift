@@ -48,7 +48,7 @@ class UBTDriver : BTManagerDelegate {
     }
     
     func bluetoothAvailable(manager: BTManager!) {
-        print("Bluetooth 4.0 is available, attempting to connect to peripheral: \(Const.BT_UIDs.keys.first!)");
+        print("Bluetooth 4.0 is available");
         manager.connectPeripheral();
     }
     
