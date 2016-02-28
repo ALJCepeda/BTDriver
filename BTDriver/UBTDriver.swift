@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-class Driver : BTManagerDelegate {
+class UBTDriver : BTManagerDelegate {
     var manager:BTManager!;
     
     func run() {
@@ -20,7 +20,9 @@ class Driver : BTManagerDelegate {
     }
     
     func characteristicUpdated(characteristic: CBCharacteristic!, withValue value: NSData!, fromPeripheral peripheral: CBPeripheral) {
-        print("\(characteristic.UUID.UUIDString): \(value)");
+        var decoded:Int = 0;
+        value.getBytes(&decoded, length: 2);
+        print("\(characteristic.UUID.UUIDString): \(decoded)");
     }
     
     func peripheralScanned(peripheral: CBPeripheral, withCharacteristics services: [String : [CBCharacteristic]]) {
@@ -30,13 +32,23 @@ class Driver : BTManagerDelegate {
             for characteristic in characteristics {
                 peripheral.setNotifyValue(true, forCharacteristic: characteristic);
                 peripheral.readValueForCharacteristic(characteristic);
-                print("\(characteristic.UUID) (\(characteristic.value))");
+                print("\(characteristic.UUID.UUIDString) (\(characteristic.value))");
+            }
+        }
+    }
+    
+    func outputServices(services: [String: [CBCharacteristic]]) {
+        for (UUID, characteristics) in services {
+            print("Service(\(UUID)) is available with \(characteristics.count) characteristics: ");
+            
+            for (characteristic) in characteristics {
+                print("\(characteristic.UUID.UUIDString)");
             }
         }
     }
     
     func bluetoothAvailable(manager: BTManager!) {
-        print("Bluetooth 4.0 is available, attempting to connect to peripheral: \(Const.BT_UID)");
+        print("Bluetooth 4.0 is available, attempting to connect to peripheral: \(Const.BT_UIDs.keys.first!)");
         manager.connectPeripheral();
     }
     

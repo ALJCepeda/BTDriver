@@ -21,7 +21,7 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var discovered:CBPeripheral!;
     var services:[String:CBService] = [:];
     var characteristics:[String:[CBCharacteristic]] = [:];
-    
+    var connected:Int = 0;
     var delegate:BTManagerDelegate!;
     
     override init () {
@@ -31,16 +31,23 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func connectPeripheral() {
-        let ids:[NSUUID] = [NSUUID(UUIDString: Const.BT_UID)!];
-        let peripherals = manager.retrievePeripheralsWithIdentifiers(ids);
+        let ids:[NSUUID] = bluetoothIDs();
+        let peripherals = self.manager.retrievePeripheralsWithIdentifiers(ids);
+        
         if(peripherals.count > 0){
             print("Found \(peripherals.count) previously connected peripheral, attempting to reconnect");
-            discovered = peripherals[0];
-            manager.connectPeripheral(discovered, options: nil);
+            
+            for peripheral in peripherals {
+                self.manager.connectPeripheral(peripheral, options: nil);
+            }
         } else {
             print("Scanning for an available peripheral");
-            manager.scanForPeripheralsWithServices(nil, options: nil);
+            self.manager.scanForPeripheralsWithServices(nil, options: nil);
         }
+    }
+    
+    func bluetoothIDs() -> [NSUUID] {
+        return Array(Const.BT_UIDs.keys).map { NSUUID(UUIDBytes: $0); };
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
@@ -53,7 +60,7 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         if let e = error {
-            print("Encountered error while searching for characteristics belong to service(\(service.UUID.UUIDString)): \(e)");
+            print("Encountered error while searching for characteristics belonging to service(\(service.UUID.UUIDString)): \(e)");
             print("Service belongs to peripheral(\(peripheral.identifier.UUIDString))");
         } else {
             for (characteristic) in service.characteristics!{
@@ -96,19 +103,27 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject],RSSI: NSNumber) {
         print("Discovered: \(peripheral)");
-        if(peripheral.identifier.UUIDString == Const.BT_UID) {
-            print("Attemping to connect");
-            discovered = peripheral;
-            manager.stopScan();
-            manager.connectPeripheral(discovered, options: nil);
-            
+        let UUID = peripheral.identifier.UUIDString;
+        
+        if(Const.BT_UIDs.indexForKey(UUID) != nil) {
+            print("Attemping to connect to: \(UUID)");
+            self.manager.connectPeripheral(peripheral, options: nil);
         }
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        print("Connected to peripheral, discovering services");
-        discovered.delegate = self;
-        discovered.discoverServices(nil);
+        print("Connected to peripheral, discovering servicets");
+        
+        let UUID = peripheral.identifier.UUIDString;
+        if let serviceIDs = Const.BT_UIDs[UUID] {
+            peripheral.delegate = self;
+            peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
+            self.connected++;
+        }
+        
+        if(self.connected == Const.BT_UIDs.count) {
+            self.manager.stopScan();
+        }
     }
     
     func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {

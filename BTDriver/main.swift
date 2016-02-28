@@ -9,5 +9,5 @@
 import Foundation
 import CoreBluetooth
 
-var driver = Driver();
+var driver = UBTDriver();
 driver.run();
