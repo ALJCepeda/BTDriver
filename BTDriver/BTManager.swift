@@ -30,8 +30,16 @@ class BTManager: NSObject, CBPeripheralDelegate {
         self.manager = CBCentralManager(delegate: central, queue: dispatch_get_main_queue());
         
         super.init();
-//        peripheral.delegate = self;
- //       peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
+        
+        self.central.didConnectPeripheral = { (peripheral:CBPeripheral) -> () in
+            peripheral.delegate = self;
+            
+            let UUID = peripheral.identifier.UUIDString;
+            if let serviceIDs = Const.BT_UIDs[UUID] {
+                peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
+                print("Discovering \"\(peripheral.name!)\" services ... ");
+            }
+        };
     }
     
     func connectPeripheral() {

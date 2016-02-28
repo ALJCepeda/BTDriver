@@ -59,7 +59,7 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        print("Connected to \"\(peripheral.name!)\"! Discovering services ... ");
+        print("Connected to \"\(peripheral.name!)\"!");
         
         if let index = self.connecting.indexOf(peripheral) {
             self.connecting.removeAtIndex(index);
@@ -67,10 +67,6 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
         
         self.didConnectPeripheral(peripheral);
         self.connected.append(peripheral);
-        
-        if(self.connected.count == Const.BT_UIDs.count) {
-            central.stopScan();
-        }
     }
     
     func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
