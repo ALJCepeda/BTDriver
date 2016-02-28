@@ -12,10 +12,11 @@ import CoreBluetooth
 class UBTDriver : BTManagerDelegate {
     var manager:BTManager!;
     
+    init() {
+        self.manager = BTManager(delegate:self);
+    }
+    
     func run() {
-        manager = BTManager();
-        manager.delegate = self;
-        
         NSRunLoop.currentRunLoop().run();
     }
     
@@ -47,12 +48,12 @@ class UBTDriver : BTManagerDelegate {
         }
     }
     
-    func bluetoothAvailable(manager: BTManager!) {
+    func bluetoothAvailable() {
         print("Bluetooth 4.0 is available");
-        manager.connectPeripheral();
+        self.manager.connectPeripheral();
     }
     
-    func bluetoothUnavailable(manager: BTManager!) {
+    func bluetoothUnavailable() {
         print("Bluetooth 4.0 is unavailable, closing driver");
         exit(0);
     }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BB8E363D1C82AD5800123539 /* UBTDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8E363C1C82AD5800123539 /* UBTDriver.swift */; };
+		BB8E363F1C82B52400123539 /* BTCentralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8E363E1C82B52400123539 /* BTCentralDelegate.swift */; };
 		BB9808B81B5742E600ECA806 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9808B71B5742E600ECA806 /* main.swift */; };
 		BB9808C11B57721700ECA806 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9808C01B57721700ECA806 /* Constants.swift */; };
 		BBDFD48A1B5B507A0017BC73 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDFD4891B5B507A0017BC73 /* BTManager.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		BB8E363C1C82AD5800123539 /* UBTDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UBTDriver.swift; sourceTree = "<group>"; };
+		BB8E363E1C82B52400123539 /* BTCentralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentralDelegate.swift; sourceTree = "<group>"; };
 		BB9808B41B5742E600ECA806 /* BTDriver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BTDriver; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9808B71B5742E600ECA806 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BB9808C01B57721700ECA806 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				BB9808B71B5742E600ECA806 /* main.swift */,
 				BB9808C01B57721700ECA806 /* Constants.swift */,
 				BBDFD4891B5B507A0017BC73 /* BTManager.swift */,
+				BB8E363E1C82B52400123539 /* BTCentralDelegate.swift */,
 			);
 			path = BTDriver;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 				BB8E363D1C82AD5800123539 /* UBTDriver.swift in Sources */,
 				BB9808C11B57721700ECA806 /* Constants.swift in Sources */,
 				BBDFD48A1B5B507A0017BC73 /* BTManager.swift in Sources */,
+				BB8E363F1C82B52400123539 /* BTCentralDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
