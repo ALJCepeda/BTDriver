@@ -39,7 +39,9 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             print("Found registered peripherals, attempting to connect");
             
             for peripheral in peripherals {
+                let UUID = peripheral.identifier.UUIDString;
                 self.manager.connectPeripheral(peripheral, options: nil);
+                self.connecting.append(UUID);
             }
         } else {
             print("Scanning for an available peripheral");
@@ -120,9 +122,13 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        print("Connected to peripheral, discovering services");
-        
         let UUID = peripheral.identifier.UUIDString;
+        print("[\(UUID)] discovering services ... ");
+        
+        if let index = self.connecting.indexOf(UUID) {
+            self.connecting.removeAtIndex(index);
+        }
+        
         if let serviceIDs = Const.BT_UIDs[UUID] {
             peripheral.delegate = self;
             peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
