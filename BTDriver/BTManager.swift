@@ -35,7 +35,7 @@ class BTManager: NSObject, CBPeripheralDelegate {
     }
     
     func connectPeripheral() {
-        if(Const.ignoreUIDs == true) {
+        if(Const.forceScan == true) {
             self.connectToAny();
             return;
         }

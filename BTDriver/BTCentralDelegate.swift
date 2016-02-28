@@ -50,7 +50,7 @@ class BTCentralDelegate : NSObject, CBCentralManagerDelegate {
         print("Discovered: \"\(peripheral.name!)\" Identifier: \"\(UUID)\"");
         
         let shouldSkip = (self.connecting.indexOf(UUID) != nil && self.connected.indexOf(peripheral) != nil);
-        let validUID = (Const.ignoreUIDs == true || Const.BT_UIDs.indexForKey(UUID) != nil);
+        let validUID = (Const.connectAll == true || Const.BT_UIDs.indexForKey(UUID) != nil);
         if( shouldSkip || validUID ) {
             print("Attemping to connect to: \(UUID)");
             central.connectPeripheral(peripheral, options: nil);
