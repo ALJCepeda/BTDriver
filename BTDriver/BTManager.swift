@@ -31,59 +31,54 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func connectPeripheral() {
-        var ids:[AnyObject] = [NSUUID(UUIDString: Const.BT_UID)!];
-        var peripherals = manager.retrievePeripheralsWithIdentifiers(ids);
-        
+        let ids:[NSUUID] = [NSUUID(UUIDString: Const.BT_UID)!];
+        let peripherals = manager.retrievePeripheralsWithIdentifiers(ids);
         if(peripherals.count > 0){
-            println("Found \(peripherals.count) previously connected peripheral, attempting to reconnect");
-            if let peripheral = peripherals[0] as? CBPeripheral {
-                discovered = peripheral;
-                manager.connectPeripheral(discovered, options: nil);
-            } else {
-                println("Unrecognized type provided");
-            }
+            print("Found \(peripherals.count) previously connected peripheral, attempting to reconnect");
+            discovered = peripherals[0];
+            manager.connectPeripheral(discovered, options: nil);
         } else {
-            println("Scanning for an available peripheral");
+            print("Scanning for an available peripheral");
             manager.scanForPeripheralsWithServices(nil, options: nil);
         }
     }
     
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         delegate.characteristicUpdated(characteristic, withValue: characteristic.value, fromPeripheral: peripheral);
     }
     
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
         if(characteristics[service.UUID.UUIDString] == nil) {
             characteristics[service.UUID.UUIDString] = [];
         }
         
         if let e = error {
-            println("Encountered error while searching for characteristics belong to service(\(service.UUID.UUIDString)): \(e)");
-            println("Service belongs to peripheral(\(peripheral.identifier.UUIDString))");
+            print("Encountered error while searching for characteristics belong to service(\(service.UUID.UUIDString)): \(e)");
+            print("Service belongs to peripheral(\(peripheral.identifier.UUIDString))");
         } else {
-            for (characteristic) in service.characteristics as! [CBCharacteristic] {
+            for (characteristic) in service.characteristics!{
                 characteristics[service.UUID.UUIDString]!.append(characteristic);
             }
         }
         
         if(services.count == characteristics.count) {
-            println("Discovered all available characteristics for peripheral");
+            print("Discovered all available characteristics for peripheral");
             delegate.peripheralScanned(peripheral, withCharacteristics: characteristics);
         }
     }
     
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
         if let e = error {
-            println("Encountered error while searching for services belonging to peripheral(\(peripheral.identifier.UUIDString)): \(e)");
+            print("Encountered error while searching for services belonging to peripheral(\(peripheral.identifier.UUIDString)): \(e)");
         } else {
-            for (service) in peripheral.services as! [CBService] {
+            for (service) in peripheral.services! {
                 services[service.UUID.UUIDString] = service;
                 peripheral.discoverCharacteristics(nil, forService: service);
             }
         }
     }
     
-    func centralManagerDidUpdateState(central: CBCentralManager!) {
+    func centralManagerDidUpdateState(central: CBCentralManager) {
         switch(central.state) {
             case .PoweredOn:
                 delegate.bluetoothAvailable(self);
@@ -94,15 +89,15 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             break;
             
             default:
-                println("Need to support state: \(central.state.rawValue)");
+                print("Need to support state: \(central.state.rawValue)");
             break;
         }
     }
     
-    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!,RSSI: NSNumber!) {
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject],RSSI: NSNumber) {
+        print("Discovered: \(peripheral)");
         if(peripheral.identifier.UUIDString == Const.BT_UID) {
-            println("Discovered: \(peripheral)");
-            println("Attemping to connect");
+            print("Attemping to connect");
             discovered = peripheral;
             manager.stopScan();
             manager.connectPeripheral(discovered, options: nil);
@@ -110,14 +105,14 @@ class BTManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
-        println("Connected to peripheral, discovering services");
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+        print("Connected to peripheral, discovering services");
         discovered.delegate = self;
         discovered.discoverServices(nil);
     }
     
-    func centralManager(central: CBCentralManager!, didFailToConnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
-        println("Failed to connect: \(error)");
+    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        print("Failed to connect: \(error)");
     }
     
 }

@@ -21,38 +21,37 @@ class Driver : BTManagerDelegate {
     
     func outputServices(services: [String: [CBCharacteristic]]) {
         for (UUID, characteristics) in services {
-            println("Service(\(UUID)) is available with \(characteristics.count) characteristics: ");
+            print("Service(\(UUID)) is available with \(characteristics.count) characteristics: ");
             
             for (characteristic) in characteristics {
-                println("\(characteristic.UUID.UUIDString)");
+                print("\(characteristic.UUID.UUIDString)");
             }
         }
     }
     
     func characteristicUpdated(characteristic: CBCharacteristic!, withValue value: NSData!, fromPeripheral peripheral: CBPeripheral) {
-        println("\(characteristic.UUID.UUIDString): \(value)");
+        print("\(characteristic.UUID.UUIDString): \(value)");
     }
     
     func peripheralScanned(peripheral: CBPeripheral, withCharacteristics services: [String : [CBCharacteristic]]) {
-        //outputServices(services);
-        var UUID = services.keys.array[8	];
-        println("Registering to service: \(UUID)");
-        
-        
+        outputServices(services);
+        let UUID = services.keys.first!;
+        print("Registering to service: \(UUID)");
+    
         for characteristic in services[UUID]! {
             peripheral.setNotifyValue(true, forCharacteristic: characteristic);
-            println("Default \(characteristic.UUID.UUIDString): \(characteristic.value)");
+            print("Default \(characteristic.UUID.UUIDString): \(characteristic.value)");
             peripheral.readValueForCharacteristic(characteristic);
         }
     }
     
     func bluetoothAvailable(manager: BTManager!) {
-        println("Bluetooth 4.0 is available, attempting to connect to peripheral: \(Const.BT_UID)");
+        print("Bluetooth 4.0 is available, attempting to connect to peripheral: \(Const.BT_UID)");
         manager.connectPeripheral();
     }
     
     func bluetoothUnavailable(manager: BTManager!) {
-        println("Bluetooth 4.0 is unavailable, closing driver");
+        print("Bluetooth 4.0 is unavailable, closing driver");
         exit(0);
     }
 }

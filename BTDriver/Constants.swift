@@ -9,5 +9,5 @@
 import Foundation
 
 class Const {
-    static let BT_UID = "9019399B-FBBE-4675-A1A0-0038E3BAFE8E";
+    static let BT_UID = "E307093E-C17A-4654-BA94-57481F8A3230";
 }
