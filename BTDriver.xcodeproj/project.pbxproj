@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB1A79001C82DC7300C6EDF1 /* misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1A78FF1C82DC7300C6EDF1 /* misc.swift */; };
-		BB3093921C86B8B600B06821 /* CentralResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30938F1C86B8B600B06821 /* CentralResponder.swift */; };
-		BB3093931C86B8B600B06821 /* PeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3093901C86B8B600B06821 /* PeripheralDelegate.swift */; };
-		BB3093941C86B8B600B06821 /* PeripheralResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3093911C86B8B600B06821 /* PeripheralResponder.swift */; };
-		BB8E363F1C82B52400123539 /* CentralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8E363E1C82B52400123539 /* CentralDelegate.swift */; };
-		BB9808B81B5742E600ECA806 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9808B71B5742E600ECA806 /* main.swift */; };
-		BB9808C11B57721700ECA806 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9808C01B57721700ECA806 /* Constants.swift */; };
-		BBDFD48A1B5B507A0017BC73 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDFD4891B5B507A0017BC73 /* BTManager.swift */; };
+		BB30940A1C86BC0B00B06821 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094091C86BC0B00B06821 /* main.swift */; };
+		BB3094191C86BC3700B06821 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094101C86BC3700B06821 /* BTManager.swift */; };
+		BB30941A1C86BC3700B06821 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094111C86BC3700B06821 /* Constants.swift */; };
+		BB30941B1C86BC3700B06821 /* CentralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094131C86BC3700B06821 /* CentralDelegate.swift */; };
+		BB30941C1C86BC3700B06821 /* PeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094141C86BC3700B06821 /* PeripheralDelegate.swift */; };
+		BB30941D1C86BC3700B06821 /* misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094151C86BC3700B06821 /* misc.swift */; };
+		BB30941E1C86BC3700B06821 /* CentralResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094171C86BC3700B06821 /* CentralResponder.swift */; };
+		BB30941F1C86BC3700B06821 /* PeripheralResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094181C86BC3700B06821 /* PeripheralResponder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BB9808B21B5742E600ECA806 /* CopyFiles */ = {
+		BB3094041C86BC0B00B06821 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -30,19 +30,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BB1A78FF1C82DC7300C6EDF1 /* misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = misc.swift; sourceTree = "<group>"; };
-		BB30938F1C86B8B600B06821 /* CentralResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralResponder.swift; sourceTree = "<group>"; };
-		BB3093901C86B8B600B06821 /* PeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralDelegate.swift; sourceTree = "<group>"; };
-		BB3093911C86B8B600B06821 /* PeripheralResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralResponder.swift; sourceTree = "<group>"; };
-		BB8E363E1C82B52400123539 /* CentralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralDelegate.swift; sourceTree = "<group>"; };
-		BB9808B41B5742E600ECA806 /* BTDriver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BTDriver; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB9808B71B5742E600ECA806 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		BB9808C01B57721700ECA806 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		BBDFD4891B5B507A0017BC73 /* BTManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
+		BB3094061C86BC0B00B06821 /* BTDriver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BTDriver; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB3094091C86BC0B00B06821 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		BB3094101C86BC3700B06821 /* BTManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
+		BB3094111C86BC3700B06821 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BB3094131C86BC3700B06821 /* CentralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralDelegate.swift; sourceTree = "<group>"; };
+		BB3094141C86BC3700B06821 /* PeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralDelegate.swift; sourceTree = "<group>"; };
+		BB3094151C86BC3700B06821 /* misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = misc.swift; sourceTree = "<group>"; };
+		BB3094171C86BC3700B06821 /* CentralResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralResponder.swift; sourceTree = "<group>"; };
+		BB3094181C86BC3700B06821 /* PeripheralResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralResponder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BB9808B11B5742E600ECA806 /* Frameworks */ = {
+		BB3094031C86BC0B00B06821 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -52,47 +52,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BB9808AB1B5742E600ECA806 = {
+		BB3093FD1C86BC0B00B06821 = {
 			isa = PBXGroup;
 			children = (
-				BB9808B61B5742E600ECA806 /* BTDriver */,
-				BB9808B51B5742E600ECA806 /* Products */,
+				BB3094081C86BC0B00B06821 /* BTDriver */,
+				BB3094071C86BC0B00B06821 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		BB9808B51B5742E600ECA806 /* Products */ = {
+		BB3094071C86BC0B00B06821 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BB9808B41B5742E600ECA806 /* BTDriver */,
+				BB3094061C86BC0B00B06821 /* BTDriver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BB9808B61B5742E600ECA806 /* BTDriver */ = {
+		BB3094081C86BC0B00B06821 /* BTDriver */ = {
 			isa = PBXGroup;
 			children = (
-				BB30938F1C86B8B600B06821 /* CentralResponder.swift */,
-				BB3093901C86B8B600B06821 /* PeripheralDelegate.swift */,
-				BB3093911C86B8B600B06821 /* PeripheralResponder.swift */,
-				BB9808B71B5742E600ECA806 /* main.swift */,
-				BB9808C01B57721700ECA806 /* Constants.swift */,
-				BBDFD4891B5B507A0017BC73 /* BTManager.swift */,
-				BB8E363E1C82B52400123539 /* CentralDelegate.swift */,
-				BB1A78FF1C82DC7300C6EDF1 /* misc.swift */,
+				BB3094101C86BC3700B06821 /* BTManager.swift */,
+				BB3094111C86BC3700B06821 /* Constants.swift */,
+				BB3094121C86BC3700B06821 /* delegates */,
+				BB3094151C86BC3700B06821 /* misc.swift */,
+				BB3094161C86BC3700B06821 /* protocols */,
+				BB3094091C86BC0B00B06821 /* main.swift */,
 			);
 			path = BTDriver;
+			sourceTree = "<group>";
+		};
+		BB3094121C86BC3700B06821 /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				BB3094131C86BC3700B06821 /* CentralDelegate.swift */,
+				BB3094141C86BC3700B06821 /* PeripheralDelegate.swift */,
+			);
+			path = delegates;
+			sourceTree = "<group>";
+		};
+		BB3094161C86BC3700B06821 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BB3094171C86BC3700B06821 /* CentralResponder.swift */,
+				BB3094181C86BC3700B06821 /* PeripheralResponder.swift */,
+			);
+			path = protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BB9808B31B5742E600ECA806 /* BTDriver */ = {
+		BB3094051C86BC0B00B06821 /* BTDriver */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BB9808BB1B5742E600ECA806 /* Build configuration list for PBXNativeTarget "BTDriver" */;
+			buildConfigurationList = BB30940D1C86BC0B00B06821 /* Build configuration list for PBXNativeTarget "BTDriver" */;
 			buildPhases = (
-				BB9808B01B5742E600ECA806 /* Sources */,
-				BB9808B11B5742E600ECA806 /* Frameworks */,
-				BB9808B21B5742E600ECA806 /* CopyFiles */,
+				BB3094021C86BC0B00B06821 /* Sources */,
+				BB3094031C86BC0B00B06821 /* Frameworks */,
+				BB3094041C86BC0B00B06821 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -100,62 +116,61 @@
 			);
 			name = BTDriver;
 			productName = BTDriver;
-			productReference = BB9808B41B5742E600ECA806 /* BTDriver */;
+			productReference = BB3094061C86BC0B00B06821 /* BTDriver */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		BB9808AC1B5742E600ECA806 /* Project object */ = {
+		BB3093FE1C86BC0B00B06821 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Alfred Cepeda";
 				TargetAttributes = {
-					BB9808B31B5742E600ECA806 = {
-						CreatedOnToolsVersion = 6.4;
+					BB3094051C86BC0B00B06821 = {
+						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
 			};
-			buildConfigurationList = BB9808AF1B5742E600ECA806 /* Build configuration list for PBXProject "BTDriver" */;
+			buildConfigurationList = BB3094011C86BC0B00B06821 /* Build configuration list for PBXProject "BTDriver" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = BB9808AB1B5742E600ECA806;
-			productRefGroup = BB9808B51B5742E600ECA806 /* Products */;
+			mainGroup = BB3093FD1C86BC0B00B06821;
+			productRefGroup = BB3094071C86BC0B00B06821 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BB9808B31B5742E600ECA806 /* BTDriver */,
+				BB3094051C86BC0B00B06821 /* BTDriver */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BB9808B01B5742E600ECA806 /* Sources */ = {
+		BB3094021C86BC0B00B06821 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB9808B81B5742E600ECA806 /* main.swift in Sources */,
-				BB3093941C86B8B600B06821 /* PeripheralResponder.swift in Sources */,
-				BB3093921C86B8B600B06821 /* CentralResponder.swift in Sources */,
-				BB3093931C86B8B600B06821 /* PeripheralDelegate.swift in Sources */,
-				BB9808C11B57721700ECA806 /* Constants.swift in Sources */,
-				BB1A79001C82DC7300C6EDF1 /* misc.swift in Sources */,
-				BBDFD48A1B5B507A0017BC73 /* BTManager.swift in Sources */,
-				BB8E363F1C82B52400123539 /* CentralDelegate.swift in Sources */,
+				BB30941B1C86BC3700B06821 /* CentralDelegate.swift in Sources */,
+				BB30941E1C86BC3700B06821 /* CentralResponder.swift in Sources */,
+				BB30941F1C86BC3700B06821 /* PeripheralResponder.swift in Sources */,
+				BB30940A1C86BC0B00B06821 /* main.swift in Sources */,
+				BB3094191C86BC3700B06821 /* BTManager.swift in Sources */,
+				BB30941D1C86BC3700B06821 /* misc.swift in Sources */,
+				BB30941A1C86BC3700B06821 /* Constants.swift in Sources */,
+				BB30941C1C86BC3700B06821 /* PeripheralDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		BB9808B91B5742E600ECA806 /* Debug */ = {
+		BB30940B1C86BC0B00B06821 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -172,6 +187,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -184,7 +200,6 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -199,7 +214,7 @@
 			};
 			name = Debug;
 		};
-		BB9808BA1B5742E600ECA806 /* Release */ = {
+		BB30940C1C86BC0B00B06821 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -216,6 +231,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -234,14 +250,14 @@
 			};
 			name = Release;
 		};
-		BB9808BC1B5742E600ECA806 /* Debug */ = {
+		BB30940E1C86BC0B00B06821 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		BB9808BD1B5742E600ECA806 /* Release */ = {
+		BB30940F1C86BC0B00B06821 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -251,25 +267,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BB9808AF1B5742E600ECA806 /* Build configuration list for PBXProject "BTDriver" */ = {
+		BB3094011C86BC0B00B06821 /* Build configuration list for PBXProject "BTDriver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BB9808B91B5742E600ECA806 /* Debug */,
-				BB9808BA1B5742E600ECA806 /* Release */,
+				BB30940B1C86BC0B00B06821 /* Debug */,
+				BB30940C1C86BC0B00B06821 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BB9808BB1B5742E600ECA806 /* Build configuration list for PBXNativeTarget "BTDriver" */ = {
+		BB30940D1C86BC0B00B06821 /* Build configuration list for PBXNativeTarget "BTDriver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BB9808BC1B5742E600ECA806 /* Debug */,
-				BB9808BD1B5742E600ECA806 /* Release */,
+				BB30940E1C86BC0B00B06821 /* Debug */,
+				BB30940F1C86BC0B00B06821 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = BB9808AC1B5742E600ECA806 /* Project object */;
+	rootObject = BB3093FE1C86BC0B00B06821 /* Project object */;
 }
