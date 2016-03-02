@@ -15,6 +15,15 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
     var connected:[CBPeripheral] = [];
     var discovered:[String] = [];
     
+    func process(peripherals:[CBPeripheral]) {
+        func connectToPeripherals(peripherals:[CBPeripheral]) {
+            for peripheral in peripherals {
+                self.central.connectPeripheral(peripheral, options: nil);
+                self.connecting.append(peripheral);
+            }
+        }
+    }
+    
     func centralManagerDidUpdateState(central: CBCentralManager) {
         if let delegate = self.responder {
             switch(central.state) {
@@ -44,7 +53,8 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
         print("Discovered: \"\(peripheral.name!)\" Identifier: \"\(UUID)\"");
         
         let shouldSkip = (self.connecting.indexOf(peripheral) != nil && self.connected.indexOf(peripheral) != nil);
-        let validUID = (Const.connectAll == true || Const.BT_UIDs.indexForKey(UUID) != nil);
+        let validUID = (Const.connectAll == true || Const.devices.indexOf({ $0.UUID == UUID }) != nil);
+        
         if( shouldSkip || validUID ) {
             print("Attemping to connect to: \"\(peripheral.name!)\"");
             central.connectPeripheral(peripheral, options: nil);

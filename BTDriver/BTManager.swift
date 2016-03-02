@@ -55,22 +55,30 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
     }
     
     func didConnectPeripheral(peripheral: CBPeripheral) {
-        peripheral.delegate = self.peripheral;
-        
-        let UUID = peripheral.identifier.UUIDString;
-        if let serviceIDs = Const.BT_UIDs[UUID] {
-            peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
-            print("Discovering \"\(peripheral.name!)\" services ... ");
-        }
+        print("Discovering \"\(peripheral.name!)\" services ... ");
+        self.peripheral.process(peripheral);
     }
     
     func characteristicUpdated(characteristic: CBCharacteristic, value: NSData?, peripheral: CBPeripheral, delegate: PeripheralDelegate) {
         var decoded:Int = 0;
-        value!.getBytes(&decoded, length: 2);
-        print("\(characteristic.UUID.UUIDString): \(decoded)");
+        if let data = value {
+            if(characteristic.UUID.UUIDString == "FFF3") {
+                var x = 0; var y = 0; var z = 0;
+               
+                data.getBytes(&y, range:  NSMakeRange(0, 1));
+                data.getBytes(&x, range:  NSMakeRange(1, 1));
+                data.getBytes(&z, range:  NSMakeRange(2, 1));
+                
+                print("X: \(x) Y: \(y) Z:\(z)");
+            } else {
+                value!.getBytes(&decoded, length: 2);
+                print("\(characteristic.UUID.UUIDString): \(decoded)");
+            }
+        }
     }
     
     func connectToPeripherals(peripherals:[CBPeripheral]) {
+        self.central.process(<#T##central: CBCentralManager##CBCentralManager#>)
         for peripheral in peripherals {
             self.manager.connectPeripheral(peripheral, options: nil);
             self.central.connecting.append(peripheral);

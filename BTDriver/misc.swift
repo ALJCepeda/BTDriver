@@ -18,5 +18,5 @@ func delay(delay:Double, cb:()->()) {
 }
 
 func bluetoothIDs() -> [NSUUID] {
-    return Const.BT_UIDs.keys.map { NSUUID(UUIDString: $0)! };
+    return Const.devices.map{ NSUUID(UUIDString: $0.name)! };
 }

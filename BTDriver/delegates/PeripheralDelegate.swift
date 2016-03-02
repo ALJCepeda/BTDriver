@@ -14,6 +14,17 @@ class PeripheralDelegate : NSObject, CBPeripheralDelegate  {
     var characteristics:[String:[CBCharacteristic]] = [:];
     var services:[String:CBService] = [:];
     
+    func process(peripheral:CBPeripheral) {
+        peripheral.delegate = self;
+        
+        let UUID = peripheral.identifier.UUIDString;
+        if let index = Const.devices.indexOf({ $0.UUID == UUID }) {
+            let services = Const.devices[index].services;
+            
+            peripheral.discoverServices(services.map{ return CBUUID(string: $0.UUID) });
+        }
+    }
+    
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if let delegate = self.responder {
             delegate.characteristicUpdated(characteristic, value: characteristic.value, peripheral: peripheral, delegate: self);

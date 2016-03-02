@@ -15,6 +15,8 @@
 		BB30941D1C86BC3700B06821 /* misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094151C86BC3700B06821 /* misc.swift */; };
 		BB30941E1C86BC3700B06821 /* CentralResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094171C86BC3700B06821 /* CentralResponder.swift */; };
 		BB30941F1C86BC3700B06821 /* PeripheralResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094181C86BC3700B06821 /* PeripheralResponder.swift */; };
+		BB3094211C86DE5900B06821 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094201C86DE5900B06821 /* DataParser.swift */; };
+		BB3094241C86DF5700B06821 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094231C86DF5700B06821 /* Bluetooth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +41,8 @@
 		BB3094151C86BC3700B06821 /* misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = misc.swift; sourceTree = "<group>"; };
 		BB3094171C86BC3700B06821 /* CentralResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralResponder.swift; sourceTree = "<group>"; };
 		BB3094181C86BC3700B06821 /* PeripheralResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralResponder.swift; sourceTree = "<group>"; };
+		BB3094201C86DE5900B06821 /* DataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
+		BB3094231C86DF5700B06821 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,12 +75,14 @@
 		BB3094081C86BC0B00B06821 /* BTDriver */ = {
 			isa = PBXGroup;
 			children = (
+				BB3094221C86DF2800B06821 /* models */,
 				BB3094121C86BC3700B06821 /* delegates */,
 				BB3094161C86BC3700B06821 /* protocols */,
 				BB3094101C86BC3700B06821 /* BTManager.swift */,
 				BB3094111C86BC3700B06821 /* Constants.swift */,
 				BB3094151C86BC3700B06821 /* misc.swift */,
 				BB3094091C86BC0B00B06821 /* main.swift */,
+				BB3094201C86DE5900B06821 /* DataParser.swift */,
 			);
 			path = BTDriver;
 			sourceTree = "<group>";
@@ -97,6 +103,14 @@
 				BB3094181C86BC3700B06821 /* PeripheralResponder.swift */,
 			);
 			path = protocols;
+			sourceTree = "<group>";
+		};
+		BB3094221C86DF2800B06821 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				BB3094231C86DF5700B06821 /* Bluetooth.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,10 +174,12 @@
 				BB30941E1C86BC3700B06821 /* CentralResponder.swift in Sources */,
 				BB30941F1C86BC3700B06821 /* PeripheralResponder.swift in Sources */,
 				BB30940A1C86BC0B00B06821 /* main.swift in Sources */,
+				BB3094241C86DF5700B06821 /* Bluetooth.swift in Sources */,
 				BB3094191C86BC3700B06821 /* BTManager.swift in Sources */,
 				BB30941D1C86BC3700B06821 /* misc.swift in Sources */,
 				BB30941A1C86BC3700B06821 /* Constants.swift in Sources */,
 				BB30941C1C86BC3700B06821 /* PeripheralDelegate.swift in Sources */,
+				BB3094211C86DE5900B06821 /* DataParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
