@@ -9,5 +9,5 @@
 import Foundation
 import CoreBluetooth
 
-var driver = UBTDriver();
-driver.run();
+var manager = BTManager();
+NSRunLoop.currentRunLoop().run();

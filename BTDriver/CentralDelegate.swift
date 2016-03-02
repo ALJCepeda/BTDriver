@@ -10,32 +10,26 @@ import Foundation
 import CoreBluetooth
 
 class CentralDelegate : NSObject, CBCentralManagerDelegate {
-    var delegate:BTManagerDelegate;
+    var responder:CentralResponder?;
     var connecting:[CBPeripheral] = [];
     var connected:[CBPeripheral] = [];
     var discovered:[String] = [];
     
-    var didConnectPeripheral:((CBPeripheral) -> ()) = { _ in print("Need to override BTCentral.didConnectPeripheral on: \(self)") };
-    
-    init(delegate:BTManagerDelegate) {
-        self.delegate = delegate;
-        
-        super.init();
-    }
-    
     func centralManagerDidUpdateState(central: CBCentralManager) {
-        switch(central.state) {
-        case .PoweredOn:
-            self.delegate.bluetoothAvailable();
-            break;
+        if let delegate = self.responder {
+            switch(central.state) {
+                case .PoweredOn:
+                    delegate.bluetoothAvailable();
+                break;
             
-        case .Unsupported:
-            self.delegate.bluetoothUnavailable();
-            break;
+                case .Unsupported:
+                    delegate.bluetoothUnavailable();
+                break;
             
-        default:
-            print("Need to support state: \(central.state.rawValue)");
-            break;
+                default:
+                    print("Need to support state: \(central.state.rawValue)");
+                break;
+            }
         }
     }
     
@@ -65,7 +59,10 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
             self.connecting.removeAtIndex(index);
         }
         
-        self.didConnectPeripheral(peripheral);
+        if let delegate = self.responder {
+            delegate.didConnectPeripheral(peripheral);
+        }
+        
         self.connected.append(peripheral);
     }
     

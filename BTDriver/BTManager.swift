@@ -10,36 +10,21 @@ import Foundation
 import CoreBluetooth
 
 protocol BTManagerDelegate {
-    func characteristicUpdated(characteristic: CBCharacteristic!, withValue value:NSData!, fromPeripheral peripheral:CBPeripheral);
-    func peripheralScanned(peripheral: CBPeripheral, withCharacteristics characteristics: [String:[CBCharacteristic]]);
-    func bluetoothAvailable();
-    func bluetoothUnavailable();
+    func characteristicUpdated(characteristic: CBCharacteristic!, value:NSData!, peripheral:CBPeripheral);
 }
 
-class BTManager: NSObject, CBPeripheralDelegate {
+class BTManager: NSObject, PeripheralResponder, CentralResponder {
+    var central:CentralDelegate = CentralDelegate();
+    var peripheral:PeripheralDelegate = PeripheralDelegate();
     var manager:CBCentralManager;
-    var central:CentralDelegate;
-    var delegate:BTManagerDelegate;
-    var services:[String:CBService] = [:];
-    var characteristics:[String:[CBCharacteristic]] = [:];
-
     
-    init (delegate:BTManagerDelegate) {
-        self.delegate = delegate;
-        self.central = CentralDelegate(delegate: delegate);
-        self.manager = CBCentralManager(delegate: central, queue: dispatch_get_main_queue());
-        
+    
+    override init () {
+        self.manager = CBCentralManager(delegate: self.central, queue: dispatch_get_main_queue());
         super.init();
         
-        self.central.didConnectPeripheral = { (peripheral:CBPeripheral) -> () in
-            peripheral.delegate = self;
-            
-            let UUID = peripheral.identifier.UUIDString;
-            if let serviceIDs = Const.BT_UIDs[UUID] {
-                peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
-                print("Discovering \"\(peripheral.name!)\" services ... ");
-            }
-        };
+        self.central.responder = self;
+        self.peripheral.responder = self;
     }
     
     func connectPeripheral() {
@@ -57,6 +42,32 @@ class BTManager: NSObject, CBPeripheralDelegate {
         } else {
             self.startScanning();
         }
+    }
+
+    func bluetoothAvailable() {
+        print("Bluetooth 4.0 is available");
+        self.connectPeripheral();
+    }
+    
+    func bluetoothUnavailable() {
+        print("Bluetooth 4.0 is unavailable, aborting");
+        exit(0);
+    }
+    
+    func didConnectPeripheral(peripheral: CBPeripheral) {
+        peripheral.delegate = self.peripheral;
+        
+        let UUID = peripheral.identifier.UUIDString;
+        if let serviceIDs = Const.BT_UIDs[UUID] {
+            peripheral.discoverServices(serviceIDs.keys.map{ CBUUID(string: $0) });
+            print("Discovering \"\(peripheral.name!)\" services ... ");
+        }
+    }
+    
+    func characteristicUpdated(characteristic: CBCharacteristic, value: NSData?, peripheral: CBPeripheral, delegate: PeripheralDelegate) {
+        var decoded:Int = 0;
+        value!.getBytes(&decoded, length: 2);
+        print("\(characteristic.UUID.UUIDString): \(decoded)");
     }
     
     func connectToPeripherals(peripherals:[CBPeripheral]) {
@@ -80,40 +91,5 @@ class BTManager: NSObject, CBPeripheralDelegate {
     
     func bluetoothIDs() -> [NSUUID] {
         return Const.BT_UIDs.keys.map { NSUUID(UUIDString: $0)! };
-    }
-    
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        delegate.characteristicUpdated(characteristic, withValue: characteristic.value, fromPeripheral: peripheral);
-    }
-    
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
-        if(characteristics[service.UUID.UUIDString] == nil) {
-            characteristics[service.UUID.UUIDString] = [];
-        }
-        
-        if let e = error {
-            print("Encountered error while searching for characteristics belonging to service(\(service.UUID.UUIDString)): \(e)");
-            print("Service belongs to peripheral(\(peripheral.identifier.UUIDString))");
-        } else {
-            for (characteristic) in service.characteristics!{
-                characteristics[service.UUID.UUIDString]!.append(characteristic);
-            }
-        }
-        
-        if(services.count == characteristics.count) {
-            print("Discovered all available characteristics for peripheral");
-            delegate.peripheralScanned(peripheral, withCharacteristics: characteristics);
-        }
-    }
-    
-    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
-        if let e = error {
-            print("Encountered error while searching for services belonging to peripheral(\(peripheral.identifier.UUIDString)): \(e)");
-        } else {
-            for (service) in peripheral.services! {
-                services[service.UUID.UUIDString] = service;
-                peripheral.discoverCharacteristics(nil, forService: service);
-            }
-        }
     }
 }
