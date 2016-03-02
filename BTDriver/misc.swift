@@ -16,3 +16,7 @@ func delay(delay:Double, cb:()->()) {
         ),
         dispatch_get_main_queue(), cb)
 }
+
+func bluetoothIDs() -> [NSUUID] {
+    return Const.BT_UIDs.keys.map { NSUUID(UUIDString: $0)! };
+}

@@ -71,11 +71,11 @@
 		BB3094081C86BC0B00B06821 /* BTDriver */ = {
 			isa = PBXGroup;
 			children = (
+				BB3094121C86BC3700B06821 /* delegates */,
+				BB3094161C86BC3700B06821 /* protocols */,
 				BB3094101C86BC3700B06821 /* BTManager.swift */,
 				BB3094111C86BC3700B06821 /* Constants.swift */,
-				BB3094121C86BC3700B06821 /* delegates */,
 				BB3094151C86BC3700B06821 /* misc.swift */,
-				BB3094161C86BC3700B06821 /* protocols */,
 				BB3094091C86BC0B00B06821 /* main.swift */,
 			);
 			path = BTDriver;

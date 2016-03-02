@@ -88,8 +88,4 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
         self.manager.stopScan();
         print("Stopped scanning for available peripherals");
     }
-    
-    func bluetoothIDs() -> [NSUUID] {
-        return Const.BT_UIDs.keys.map { NSUUID(UUIDString: $0)! };
-    }
 }
