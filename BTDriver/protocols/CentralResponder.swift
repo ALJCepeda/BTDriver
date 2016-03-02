@@ -12,5 +12,5 @@ import CoreBluetooth
 protocol CentralResponder {
     func bluetoothAvailable();
     func bluetoothUnavailable();
-    func didConnectPeripheral(peripheTNxjdUsEZzral:CBPeripheral);
+    func didConnectPeripheral(peripheral:CBPeripheral);
 }
