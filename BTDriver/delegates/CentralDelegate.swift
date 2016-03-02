@@ -10,18 +10,46 @@ import Foundation
 import CoreBluetooth
 
 class CentralDelegate : NSObject, CBCentralManagerDelegate {
+    var central:CBCentralManager!;
     var responder:CentralResponder?;
     var connecting:[CBPeripheral] = [];
     var connected:[CBPeripheral] = [];
     var discovered:[String] = [];
-    
-    func process(peripherals:[CBPeripheral]) {
-        func connectToPeripherals(peripherals:[CBPeripheral]) {
-            for peripheral in peripherals {
-                self.central.connectPeripheral(peripheral, options: nil);
-                self.connecting.append(peripheral);
-            }
+
+    override init() {
+        super.init();
+        
+        self.central = CBCentralManager(delegate: self, queue: dispatch_get_main_queue());
+    }
+
+    func process(ids:[NSUUID]) {
+        let peripherals = self.central.retrievePeripheralsWithIdentifiers(ids);
+        
+        if(peripherals.count > 0){
+            print("Found registered peripherals, attempting to connect");
+            self.connectToPeripherals(peripherals);
+        } else {
+            self.startScanning();
         }
+    }
+    
+    func connectToPeripherals(peripherals:[CBPeripheral]) {
+        for peripheral in peripherals {
+            self.central.connectPeripheral(peripheral, options: nil);
+            self.connecting.append(peripheral);
+        }
+    }
+    
+    func startScanning() {
+        print("Scanning for available peripherals");
+        self.central.scanForPeripheralsWithServices(nil, options: nil);
+        
+        delay(Const.scanTime, cb: self.stopScanning);
+    }
+    
+    func stopScanning() {
+        self.central.stopScan();
+        print("Stopped scanning for available peripherals");
     }
     
     func centralManagerDidUpdateState(central: CBCentralManager) {

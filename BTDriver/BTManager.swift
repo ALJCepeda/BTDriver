@@ -16,11 +16,8 @@ protocol BTManagerDelegate {
 class BTManager: NSObject, PeripheralResponder, CentralResponder {
     var central:CentralDelegate = CentralDelegate();
     var peripheral:PeripheralDelegate = PeripheralDelegate();
-    var manager:CBCentralManager;
-    
-    
+
     override init () {
-        self.manager = CBCentralManager(delegate: self.central, queue: dispatch_get_main_queue());
         super.init();
         
         self.central.responder = self;
@@ -29,18 +26,9 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
     
     func connectPeripheral() {
         if(Const.forceScan == true) {
-            self.startScanning();
-            return;
-        }
-        
-        let ids:[NSUUID] = bluetoothIDs();
-        let peripherals = self.manager.retrievePeripheralsWithIdentifiers(ids);
-
-        if(peripherals.count > 0){
-            print("Found registered peripherals, attempting to connect");
-            self.connectToPeripherals(peripherals);
+            self.central.startScanning();
         } else {
-            self.startScanning();
+            self.central.process(bluetoothIDs());
         }
     }
 
@@ -75,25 +63,5 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
                 print("\(characteristic.UUID.UUIDString): \(decoded)");
             }
         }
-    }
-    
-    func connectToPeripherals(peripherals:[CBPeripheral]) {
-        self.central.process(<#T##central: CBCentralManager##CBCentralManager#>)
-        for peripheral in peripherals {
-            self.manager.connectPeripheral(peripheral, options: nil);
-            self.central.connecting.append(peripheral);
-        }
-    }
-    
-    func startScanning() {
-        print("Scanning for available peripherals");
-        self.manager.scanForPeripheralsWithServices(nil, options: nil);
-    
-        delay(Const.scanTime, cb: self.stopScanning);
-    }
-    
-    func stopScanning() {
-        self.manager.stopScan();
-        print("Stopped scanning for available peripherals");
     }
 }
