@@ -44,11 +44,11 @@ class Service {
 
 class Characteristic {
     var name = "";
-    var type = "none";
+    var type = Bytetype.None;
     var UUID = "";
     var parse:AnyObject?;
     
-    init(name:String, UUID:String, type:String, parse:AnyObject) {
+    init(name:String, UUID:String, type:Bytetype, parse:AnyObject) {
         self.name = name;
         self.UUID = UUID;
         self.type = type;

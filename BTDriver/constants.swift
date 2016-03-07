@@ -15,7 +15,7 @@ class Const {
     static let devices = [
         Bluetooth(name: "VStroker", UUID: "E307093E-C17A-4654-BA94-57481F8A3230", services: [
             Service(name: "Accelerometer", UUID: "FFF0", characteristics: [
-                Characteristic(name:"3D", UUID:"FFF3", type: "bytearray", parse: [
+                Characteristic(name:"3D", UUID:"FFF3", type: Bytetype.Array, parse: [
                     Byte(name: "x", length: 1),
                     Byte(name: "y", length: 1),
                     Byte(name: "z", length: 1)

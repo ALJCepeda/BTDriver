@@ -24,6 +24,10 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
         self.peripheral.responder = self;
     }
     
+    func connectPeripheral(type:String) {
+        
+    }
+    
     func connectPeripheral() {
         if(Const.forceScan == true) {
             self.central.startScanning();
@@ -53,9 +57,9 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
             if(characteristic.UUID.UUIDString == "FFF3") {
                 var x = 0; var y = 0; var z = 0;
                
-                data.getBytes(&y, range:  NSMakeRange(0, 1));
-                data.getBytes(&x, range:  NSMakeRange(1, 1));
-                data.getBytes(&z, range:  NSMakeRange(2, 1));
+                data.getBytes(&x, range: NSMakeRange(0, 2));
+                data.getBytes(&y, range: NSMakeRange(1, 2));
+                data.getBytes(&z, range: NSMakeRange(2, 2));
                 
                 print("X: \(x) Y: \(y) Z:\(z)");
             } else {
