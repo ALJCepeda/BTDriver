@@ -97,8 +97,8 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
             self.connecting.removeAtIndex(index);
         }
         
-        if let delegate = self.responder {
-            delegate.didConnectPeripheral(peripheral);
+        if let responder = self.responder {
+            responder.didConnectPeripheral(peripheral);
         }
         
         self.connected.append(peripheral);

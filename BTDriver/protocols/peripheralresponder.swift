@@ -11,4 +11,5 @@ import CoreBluetooth
 
 protocol PeripheralResponder {
     func characteristicUpdated(characteristic:CBCharacteristic, value:NSData?, peripheral:CBPeripheral, delegate:PeripheralDelegate);
+    func characteristicDiscovered(characteristic:CBCharacteristic, service:CBService, peripheral:CBPeripheral);
 }

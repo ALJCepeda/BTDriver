@@ -26,8 +26,8 @@ class PeripheralDelegate : NSObject, CBPeripheralDelegate  {
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if let delegate = self.responder {
-            delegate.characteristicUpdated(characteristic, value: characteristic.value, peripheral: peripheral, delegate: self);
+        if let responder = self.responder {
+            responder.characteristicUpdated(characteristic, value: characteristic.value, peripheral: peripheral, delegate: self);
         }
     }
     
@@ -49,6 +49,10 @@ class PeripheralDelegate : NSObject, CBPeripheralDelegate  {
                     peripheral.setNotifyValue(true, forCharacteristic: characteristic);
                     peripheral.readValueForCharacteristic(characteristic);
                     print("\(characteristic.UUID.UUIDString) (\(characteristic.value))");
+                    
+                    if let responder = self.responder {
+                        responder.characteristicDiscovered(characteristic, service: service, peripheral: peripheral);
+                    }
                 }
             } else {
                 print("Invalid characteristics for service(\(UUID))");

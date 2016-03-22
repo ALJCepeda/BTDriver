@@ -51,15 +51,19 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
         self.peripheral.process(peripheral);
     }
     
+    func characteristicDiscovered(characteristic: CBCharacteristic, service: CBService, peripheral: CBPeripheral) {
+        
+    }
+    
     func characteristicUpdated(characteristic: CBCharacteristic, value: NSData?, peripheral: CBPeripheral, delegate: PeripheralDelegate) {
         var decoded:Int = 0;
         if let data = value {
             if(characteristic.UUID.UUIDString == "FFF3") {
                 var x = 0; var y = 0; var z = 0;
                
-                data.getBytes(&x, range: NSMakeRange(0, 2));
-                data.getBytes(&y, range: NSMakeRange(1, 2));
-                data.getBytes(&z, range: NSMakeRange(2, 2));
+                data.getBytes(&x, range: NSMakeRange(0, 1));
+                data.getBytes(&y, range: NSMakeRange(1, 1));
+                data.getBytes(&z, range: NSMakeRange(2, 1));
                 
                 print("X: \(x) Y: \(y) Z:\(z)");
             } else {
