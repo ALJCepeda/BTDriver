@@ -10,6 +10,7 @@ import Foundation
 import CoreBluetooth
 
 protocol PeripheralResponder {
+    func discoverServices() -> [CBUUID];
+    func discoverCharacterisics(service:CBService) -> [CBUUID]?;
     func characteristicUpdated(characteristic:CBCharacteristic, value:NSData?, peripheral:CBPeripheral, delegate:PeripheralDelegate);
-    func characteristicDiscovered(characteristic:CBCharacteristic, service:CBService, peripheral:CBPeripheral);
 }

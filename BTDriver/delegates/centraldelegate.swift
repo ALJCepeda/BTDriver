@@ -22,8 +22,8 @@ class CentralDelegate : NSObject, CBCentralManagerDelegate {
         self.central = CBCentralManager(delegate: self, queue: dispatch_get_main_queue());
     }
 
-    func process(ids:[NSUUID]) {
-        let peripherals = self.central.retrievePeripheralsWithIdentifiers(ids);
+    func process(id:NSUUID) {
+        let peripherals = self.central.retrievePeripheralsWithIdentifiers([id]);
         
         if(peripherals.count > 0){
             print("Found registered peripherals, attempting to connect");

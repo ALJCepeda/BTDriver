@@ -17,6 +17,14 @@ func delay(delay:Double, cb:()->()) {
         dispatch_get_main_queue(), cb)
 }
 
-func bluetoothIDs() -> [NSUUID] {
-    return Const.devices.map{ NSUUID(UUIDString: $0.name)! };
+extension Array {
+    func find(isFound: (Element) -> Bool) -> Element? {
+        for elem in self {
+            if(isFound(elem) == true) {
+                return elem;
+            }
+        }
+        
+        return nil;
+    }
 }

@@ -14,31 +14,29 @@ protocol BTManagerDelegate {
 }
 
 class BTManager: NSObject, PeripheralResponder, CentralResponder {
+    var bluetooth:Bluetooth;
     var central:CentralDelegate = CentralDelegate();
     var peripheral:PeripheralDelegate = PeripheralDelegate();
 
-    override init () {
+    init(bluetooth:Bluetooth) {
+        self.bluetooth = bluetooth;
         super.init();
         
         self.central.responder = self;
         self.peripheral.responder = self;
     }
     
-    func connectPeripheral(type:String) {
-        
-    }
-    
-    func connectPeripheral() {
-        if(Const.forceScan == true) {
-            self.central.startScanning();
+    func connectBluetooth() {
+        if let UUID = NSUUID(UUIDString: bluetooth.UUID) {
+            self.central.process(UUID);
         } else {
-            self.central.process(bluetoothIDs());
+            print("Bluetooth has invalid UUID");
         }
     }
 
     func bluetoothAvailable() {
         print("Bluetooth 4.0 is available");
-        self.connectPeripheral();
+        self.connectBluetooth();
     }
     
     func bluetoothUnavailable() {
@@ -51,8 +49,16 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
         self.peripheral.process(peripheral);
     }
     
-    func characteristicDiscovered(characteristic: CBCharacteristic, service: CBService, peripheral: CBPeripheral) {
+    func discoverServices() -> [CBUUID] {
+        return self.bluetooth.services.map{ CBUUID(string: $0.UUID) };
+    }
+    
+    func discoverCharacterisics(service: CBService) -> [CBUUID]? {
+        if let service = self.bluetooth.serviceWithUUID(service.UUID.UUIDString) {
+            return service.characteristics.map { CBUUID(string: $0.UUID) };
+        }
         
+        return nil;
     }
     
     func characteristicUpdated(characteristic: CBCharacteristic, value: NSData?, peripheral: CBPeripheral, delegate: PeripheralDelegate) {

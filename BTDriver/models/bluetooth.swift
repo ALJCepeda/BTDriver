@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 class Byte {
     var name = "";
@@ -27,6 +28,10 @@ class Bluetooth {
         self.name = name;
         self.UUID = UUID;
         self.services = services;
+    }
+    
+    func serviceWithUUID(UUID:String) -> Service? {
+        return self.services.find{ $0.UUID == UUID };
     }
 }
 
