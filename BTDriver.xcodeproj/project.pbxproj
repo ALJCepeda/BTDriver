@@ -17,6 +17,7 @@
 		BB30941F1C86BC3700B06821 /* peripheralresponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094181C86BC3700B06821 /* peripheralresponder.swift */; };
 		BB3094241C86DF5700B06821 /* bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094231C86DF5700B06821 /* bluetooth.swift */; };
 		BB3094271C8A3A3700B06821 /* datareader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3094261C8A3A3700B06821 /* datareader.swift */; };
+		BB8AB9BF1CA1F765006915FA /* cl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8AB9BE1CA1F764006915FA /* cl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 		BB3094181C86BC3700B06821 /* peripheralresponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = peripheralresponder.swift; sourceTree = "<group>"; };
 		BB3094231C86DF5700B06821 /* bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bluetooth.swift; sourceTree = "<group>"; };
 		BB3094261C8A3A3700B06821 /* datareader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = datareader.swift; sourceTree = "<group>"; };
+		BB8AB9BE1CA1F764006915FA /* cl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				BB3094111C86BC3700B06821 /* constants.swift */,
 				BB3094151C86BC3700B06821 /* misc.swift */,
 				BB3094091C86BC0B00B06821 /* main.swift */,
+				BB8AB9BE1CA1F764006915FA /* cl.swift */,
 			);
 			path = BTDriver;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				BB3094191C86BC3700B06821 /* btmanager.swift in Sources */,
 				BB30941D1C86BC3700B06821 /* misc.swift in Sources */,
 				BB30941A1C86BC3700B06821 /* constants.swift in Sources */,
+				BB8AB9BF1CA1F765006915FA /* cl.swift in Sources */,
 				BB30941C1C86BC3700B06821 /* peripheraldelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

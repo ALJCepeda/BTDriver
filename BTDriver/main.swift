@@ -10,6 +10,7 @@ import Foundation
 import CoreBluetooth
 
 if let bluetooth = Const.devices.first {
+    var console = Console();
     var manager = BTManager(bluetooth: bluetooth);
     NSRunLoop.currentRunLoop().run();
 } else {

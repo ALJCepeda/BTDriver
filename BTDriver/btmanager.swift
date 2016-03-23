@@ -17,6 +17,7 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
     var bluetooth:Bluetooth;
     var central:CentralDelegate = CentralDelegate();
     var peripheral:PeripheralDelegate = PeripheralDelegate();
+    var console:Console = Console();
 
     init(bluetooth:Bluetooth) {
         self.bluetooth = bluetooth;
@@ -71,7 +72,7 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
                 data.getBytes(&y, range: NSMakeRange(1, 1));
                 data.getBytes(&z, range: NSMakeRange(2, 1));
                 
-                print("X: \(x) Y: \(y) Z:\(z)");
+                console.stdout("X: \(x) Y: \(y) Z:\(z)\n");
             } else {
                 value!.getBytes(&decoded, length: 2);
                 print("\(characteristic.UUID.UUIDString): \(decoded)");
