@@ -19,6 +19,8 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
     var peripheral:PeripheralDelegate = PeripheralDelegate();
     var console:Console = Console();
 
+    var readers:[String:DataReader] = [:];
+    
     init(bluetooth:Bluetooth) {
         self.bluetooth = bluetooth;
         super.init();
@@ -62,21 +64,31 @@ class BTManager: NSObject, PeripheralResponder, CentralResponder {
         return nil;
     }
     
-    func characteristicUpdated(characteristic: CBCharacteristic, value: NSData?, peripheral: CBPeripheral, delegate: PeripheralDelegate) {
-        var decoded:Int = 0;
-        if let data = value {
-            if(characteristic.UUID.UUIDString == "FFF3") {
-                var x = 0; var y = 0; var z = 0;
-               
-                data.getBytes(&x, range: NSMakeRange(0, 1));
-                data.getBytes(&y, range: NSMakeRange(1, 1));
-                data.getBytes(&z, range: NSMakeRange(2, 1));
-                
-                console.stdout("X: \(x) Y: \(y) Z:\(z)\n");
-            } else {
-                value!.getBytes(&decoded, length: 2);
-                print("\(characteristic.UUID.UUIDString): \(decoded)");
+    func didDiscoverCharacteristic(characteristic: CBCharacteristic, forService service: CBService) {
+        if let service = self.bluetooth.serviceWithUUID(service.UUID.UUIDString) {
+            if let charac = service.characteristicWithUUID(characteristic.UUID.UUIDString) {
+                self.readers[charac.UUID] = DataReader(characteristic: charac);
             }
+        }
+    }
+    
+    func characteristicUpdated(characteristic: CBCharacteristic, value: NSData?, peripheral: CBPeripheral, delegate: PeripheralDelegate) {
+        
+        if let reader = self.readers[characteristic.UUID.UUIDString] {
+            if let data = value {
+                let val = reader.read(data);
+                self.parseValue(val);
+            }
+        }
+    }
+    
+    func parseValue(val:AnyObject?) {
+        if let hashmap = val as? [String:Int] {
+            for (key, value) in hashmap {
+                console.stdout("\(key): \(value) ");
+            }
+            
+            console.stdout("\n");
         }
     }
 }

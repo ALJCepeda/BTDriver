@@ -45,6 +45,10 @@ class Service {
         self.UUID = UUID;
         self.characteristics = characteristics;
     }
+    
+    func characteristicWithUUID(UUID:String) -> Characteristic? {
+        return self.characteristics.find{ $0.UUID == UUID };
+    }
 }
 
 class Characteristic {

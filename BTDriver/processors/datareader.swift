@@ -13,17 +13,20 @@ enum Bytetype {
 }
 
 class DataReader {
-    var characteristic:Characteristic?;
-    var parse:((NSData) -> AnyObject)?;
+    var characteristic:Characteristic;
+    var parse:((NSData) -> AnyObject) = {(value:NSData) -> AnyObject in
+        var decoded:Int = 0;
+        value.getBytes(&decoded, length: value.length);
+        return decoded;
+    };
     
-    func read(value:NSData) -> AnyObject? {
-        if let action = self.parse {
-            let result = action(value);
-            return result;
-        }
-        
-        print("Must set characteristic before attempting to read value");
-        return nil;
+    init(characteristic:Characteristic) {
+        self.characteristic = characteristic;
+        self.setCharacteristic(characteristic);
+    }
+    
+    func read(value:NSData) -> AnyObject {
+        return self.parse(value);
     }
     
     func setCharacteristic(charac:Characteristic) -> Bool {
@@ -78,7 +81,7 @@ class DataReader {
         }
     }
     
-    func action_byteArray(bytes:Array<Byte>) -> ((NSData) -> AnyObject)? {
+    func action_byteArray(bytes:Array<Byte>) -> ((NSData) -> AnyObject) {
         var dict:[String:Int] = [:];
         var index = 0;
         bytes.forEach{ byte in

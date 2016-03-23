@@ -53,6 +53,8 @@ class PeripheralDelegate : NSObject, CBPeripheralDelegate  {
                     
                     peripheral.setNotifyValue(true, forCharacteristic: characteristic);
                     peripheral.readValueForCharacteristic(characteristic);
+                    
+                    self.responder.didDiscoverCharacteristic(characteristic, forService: service);
                 }
             } else {
                 print("Invalid characteristics for service(\(UUID))");
